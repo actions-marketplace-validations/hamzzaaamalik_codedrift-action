@@ -1,0 +1,47 @@
+name: 'CodeDrift - AI Code Security Scanner'
+description: 'Catch security bugs that AI coding assistants silently ship. Inline PR annotations, job summaries, and SARIF upload.'
+author: 'hamzzaaamalik'
+
+branding:
+  icon: 'shield'
+  color: 'red'
+
+inputs:
+  confidence-threshold:
+    description: 'Minimum confidence level to report: high, medium, low'
+    required: false
+    default: 'high'
+  fail-on:
+    description: 'Fail the action on: error, warn, or none'
+    required: false
+    default: 'error'
+  exclude-tests:
+    description: 'Skip test files'
+    required: false
+    default: 'true'
+  working-directory:
+    description: 'Directory to scan (defaults to repository root)'
+    required: false
+    default: '.'
+  sarif:
+    description: 'Also upload SARIF to GitHub Code Scanning (requires security-events: write)'
+    required: false
+    default: 'false'
+  version:
+    description: 'CodeDrift version to use (e.g. 1.2.10, latest)'
+    required: false
+    default: 'latest'
+
+outputs:
+  total-issues:
+    description: 'Total number of issues found'
+  critical-count:
+    description: 'Number of critical issues'
+  high-count:
+    description: 'Number of high severity issues'
+  report-json:
+    description: 'Path to the JSON report file'
+
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
